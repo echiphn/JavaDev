@@ -11,7 +11,6 @@ public class IsNotANumber extends TypeSafeMatcher<Double> {
 		description.appendText("not a number");
 	}
 
-	@Override
 	protected boolean matchesSafely(Double number) {
 		return number.isNaN();
 	}
