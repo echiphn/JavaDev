@@ -1,7 +1,6 @@
 package org.jaxb;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -9,6 +8,7 @@ import java.io.Writer;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
@@ -34,6 +34,17 @@ public class ConfigurationTest {
 		assertTrue("File exists now ", f.exists());
 
 		FileUtils.forceDeleteOnExit(f);
+	}
+	
+	@Test
+	public void testUnMarshall() throws Exception {
+		final File f = FileUtils.toFile(this.getClass().getResource("/toUnmarshall.xml"));
+		JAXBContext jc = JAXBContext.newInstance(Configuration.class);
+		Unmarshaller unmarshaller=jc.createUnmarshaller();
+
+		Configuration configuration=(Configuration) unmarshaller.unmarshal(f);
+		assertNotNull(configuration);
+		assertEquals("red",configuration.getColorName());
 	}
 
 }
