@@ -23,14 +23,11 @@ public class ConfigurationTest {
 		configuration.setColorName("blue");
 		JAXBContext jc = JAXBContext.newInstance(Configuration.class);
 		Marshaller saver = jc.createMarshaller();
-
-		// We save their preferences
-		// Configuration c = ... - set above
+		
 		Writer saveFile = new FileWriter(f);
 		saver.marshal(configuration, saveFile);
 		saveFile.close();
 
-		// Confirm that the XML file got written
 		assertTrue("File exists now ", f.exists());
 
 		FileUtils.forceDeleteOnExit(f);
