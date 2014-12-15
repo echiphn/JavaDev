@@ -87,4 +87,5 @@ public class CounterTest {
 		assertThat(counter.getValue(), equalTo(numberOfThreads
 				* incrementPerThread));
 	}
+	
 }
