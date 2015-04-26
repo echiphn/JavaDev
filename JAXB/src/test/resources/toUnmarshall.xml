@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<config>
-	<screenName></screenName>
-	<webProxy></webProxy>
-	<verbose></verbose>
-	<colorName>red</colorName>
-</config>
+<configuration xmlns="http://book.org/Configuration">
+	<user-settings>
+		<user-home-directory>~/home/</user-home-directory>
+	</user-settings>
+	<ui-settings>
+		<background-color>
+			<red>10</red>
+			<green>9</green>
+			<blue>11</blue>
+			<alpha>2</alpha>
+		</background-color>
+	</ui-settings>
+</configuration>

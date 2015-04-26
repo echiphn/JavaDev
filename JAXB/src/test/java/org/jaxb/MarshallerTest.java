@@ -17,7 +17,7 @@ import org.jaxb.generated.ObjectFactory;
 import org.jaxb.generated.UiSettingsType;
 import org.junit.Test;
 
-public class JAXBTest {
+public class MarshallerTest {
 
 	@Test
 	public void testMarshall() throws Exception {
