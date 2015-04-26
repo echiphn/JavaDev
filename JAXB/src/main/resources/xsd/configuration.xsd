@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema targetNamespace="http://book.org/Configuration"
+	elementFormDefault="qualified" xmlns="http://book.org/Configuration"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:complexType name="configurationType">
+		<xs:sequence>
+			<xs:element name="user-settings" type="user-settingsType" />
+			<xs:element name="ui-settings" type="ui-settingsType" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="recentFilesType">
+		<xs:sequence>
+			<xs:element name="recent-file" type="xs:string" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pointType">
+		<xs:sequence>
+			<xs:element name="x-coord" type="xs:int" />
+			<xs:element name="y-coord" type="xs:int" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="colorType">
+		<xs:sequence>
+			<xs:element name="red" type="xs:int" />
+			<xs:element name="green" type="xs:int" />
+			<xs:element name="blue" type="xs:int" />
+			<xs:element name="alpha" type="xs:int" default="255" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ui-settingsType">
+		<xs:sequence>
+			<xs:element name="palette-window-position" type="pointType"
+				minOccurs="0" />
+			<xs:element name="tools-window-position" type="pointType"
+				minOccurs="0" />
+			<xs:element name="background-color" type="colorType"
+				minOccurs="0" />
+			<xs:element name="foreground-color" type="colorType"
+				minOccurs="0" />
+			<xs:element name="show-tabs" type="xs:boolean" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="user-settingsType">
+		<xs:sequence>
+			<xs:element name="user-home-directory" type="xs:string" />
+			<xs:element name="recent-files" type="recentFilesType"
+				minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="configuration" type="configurationType" />
+</xs:schema>
