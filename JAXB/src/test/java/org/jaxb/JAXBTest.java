@@ -9,11 +9,34 @@ import java.io.Writer;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
-public class ConfigurationTest {
+public class JAXBTest {
+	
+	@XmlAccessorType(XmlAccessType.FIELD)
+	@XmlType(name = "configuration", propOrder = { "screenName", "webProxy",
+			"verbose", "colorName" })
+	@XmlRootElement(name = "config")
+	static class Configuration {
+		private String webProxy;
+		private boolean verbose;
+		private String colorName;
+		private String screenName;
+
+		public String getColorName() {
+			return colorName;
+		}
+
+		public void setColorName(String colorName) {
+			this.colorName = colorName;
+		}
+	}
 
 	@Test
 	public void testMarshall() throws Exception {
@@ -23,7 +46,7 @@ public class ConfigurationTest {
 		configuration.setColorName("blue");
 		JAXBContext jc = JAXBContext.newInstance(Configuration.class);
 		Marshaller saver = jc.createMarshaller();
-		
+
 		Writer saveFile = new FileWriter(f);
 		saver.marshal(configuration, saveFile);
 		saveFile.close();
@@ -32,16 +55,17 @@ public class ConfigurationTest {
 
 		FileUtils.forceDeleteOnExit(f);
 	}
-	
+
 	@Test
 	public void testUnMarshall() throws Exception {
-		final File f = FileUtils.toFile(this.getClass().getResource("/toUnmarshall.xml"));
+		final File f = FileUtils.toFile(this.getClass().getResource(
+				"/toUnmarshall.xml"));
 		JAXBContext jc = JAXBContext.newInstance(Configuration.class);
-		Unmarshaller unmarshaller=jc.createUnmarshaller();
+		Unmarshaller unmarshaller = jc.createUnmarshaller();
 
-		Configuration configuration=(Configuration) unmarshaller.unmarshal(f);
+		Configuration configuration = (Configuration) unmarshaller.unmarshal(f);
 		assertNotNull(configuration);
-		assertEquals("red",configuration.getColorName());
+		assertEquals("red", configuration.getColorName());
 	}
 
 }
