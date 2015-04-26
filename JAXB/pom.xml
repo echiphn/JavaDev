@@ -24,6 +24,7 @@
 							<schemaIncludes>
 						        <include>*.xsd</include>
 						    </schemaIncludes>
+						  	<generateDirectory>src/main/java</generateDirectory>
 						  	<generatePackage>org.jaxb.generated</generatePackage>
 						</configuration>
 					</execution>
