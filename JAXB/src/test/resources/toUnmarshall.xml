@@ -10,5 +10,6 @@
 			<blue>11</blue>
 			<alpha>2</alpha>
 		</background-color>
+		<show-tabs>true</show-tabs>
 	</ui-settings>
 </configuration>
