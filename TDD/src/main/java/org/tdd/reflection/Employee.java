@@ -15,6 +15,10 @@ class Employee extends People {
 		this.salary = salary;
 	}
 
+	public Employee() {
+		super();
+	}
+
 	BigDecimal getSalary() {
 		return salary;
 	}

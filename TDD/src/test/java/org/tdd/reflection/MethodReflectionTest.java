@@ -74,4 +74,18 @@ public class MethodReflectionTest {
 		assertEquals("Test Application",setNameMethod.invoke(null));
 	}
 	
+	
+	@Test(expected=IllegalAccessException.class)
+	public void testInvokePrivateMethodFailed() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		Method privateMethod = claz.getDeclaredMethod("doPrivateWork");
+		privateMethod.invoke(new Employee());
+	}
+	
+	@Test
+	public void testInvokePrivateMethod() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		Method privateMethod = claz.getDeclaredMethod("doPrivateWork");
+		privateMethod.setAccessible(true);
+		Object voidReturn = privateMethod.invoke(new Employee());
+		assertNull(voidReturn);
+	}
 }
