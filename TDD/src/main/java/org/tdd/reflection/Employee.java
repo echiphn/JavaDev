@@ -9,7 +9,7 @@ class Employee extends People {
 	private static final long serialVersionUID = 1L;
 	private String position;
 	private BigDecimal salary;
-	
+
 	private Employee(BigDecimal salary) {
 		super();
 		this.salary = salary;
@@ -31,4 +31,12 @@ class Employee extends People {
 		this.position = position;
 	}
 
+	public void work() {
+
+	}
+	
+	private void doPrivateWork(){
+		
+	}
+	
 }
