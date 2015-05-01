@@ -2,6 +2,7 @@ package org.tdd.reflection;
 
 import static org.junit.Assert.*;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,5 +57,21 @@ public class MethodReflectionTest {
 		SetUtils.isEqualSet(expectedPublicMethodNames,
 				declaredMethodNames);
 	}
-
+	
+	@Test
+	public void testInvokeMethod() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException{
+		Class<People> claz=People.class;
+		Method setNameMethod=claz.getDeclaredMethod("setName", String.class);
+		People p = claz.newInstance();
+		setNameMethod.invoke(p, "testName");
+		assertEquals("testName",p.getName());
+	}
+	
+	@Test
+	public void testInvokeStaticMethod() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException{
+		Class<Utility> claz=Utility.class;
+		Method setNameMethod=claz.getDeclaredMethod("getApplicationName");
+		assertEquals("Test Application",setNameMethod.invoke(null));
+	}
+	
 }
