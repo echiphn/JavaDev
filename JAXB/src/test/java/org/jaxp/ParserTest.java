@@ -23,7 +23,7 @@ public class ParserTest {
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		SAXParser parser = factory.newSAXParser();
 		DefaultHandler dh = getHandler();
-		parser.parse(this.getClass().getResourceAsStream("/toUnmarshall.xml"),
+		parser.parse(this.getClass().getResourceAsStream("/toMarshall.xml"),
 				dh);
 		assertEquals("red", ((ColorNameHandler) dh).getColorName());
 	}
