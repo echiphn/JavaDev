@@ -31,7 +31,7 @@ public class MarshallerTest {
 			saver.marshal(factory.createConfiguration(configuration), fos);
 		}
 		assertTrue("File exists now ", f.exists());
-		FileUtils.forceDeleteOnExit(f);
+		FileUtils.forceDelete(f);
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class MarshallerTest {
 		try(FileOutputStream fos = new FileOutputStream(f)) {
 			saver.marshal(configuration, fos);
 		}finally{
-			FileUtils.forceDeleteOnExit(f);
+			FileUtils.forceDelete(f);
 		}
 	}
 
