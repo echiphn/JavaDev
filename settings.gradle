@@ -1,0 +1,6 @@
+rootProject.name = 'JavaDev'
+include ':TDD'
+include ':JAXB'
+
+project(':TDD').projectDir = "$rootDir/TDD" as File
+project(':JAXB').projectDir = "$rootDir/JAXB" as File

@@ -1,0 +1,7 @@
+
+description = 'experiment java technologies using tdd'
+dependencies {
+    compile group: 'org.apache.commons', name: 'commons-collections4', version:'4.0'
+    compile group: 'org.apache.commons', name: 'commons-io', version:'1.3.2'
+    compile group: 'com.ximpleware', name: 'vtd-xml', version:'2.11'
+}

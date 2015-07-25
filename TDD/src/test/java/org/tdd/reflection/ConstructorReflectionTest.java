@@ -27,7 +27,7 @@ public class ConstructorReflectionTest {
 	public void testConstructor() throws ClassNotFoundException {
 		Class employeeClaz = Class.forName("org.tdd.reflection.Employee");
 		Constructor[] constructor = employeeClaz.getConstructors();
-		assertEquals(0, constructor.length);
+		assertEquals(1, constructor.length);
 		Constructor[] peopleConstructors = claz.getConstructors();
 		assertEquals(2, peopleConstructors.length);
 	}
