@@ -52,7 +52,7 @@ def java2wsdl = task generateJavaFromWsdl(type: JavaExec) {
 	classpath configurations.java2wsdl
 	main "org.apache.cxf.tools.wsdlto.WSDLToJava"
 
-	args '-d', genSrcDir.toString(), wsdl.toString()
+	args '-client', '-d', genSrcDir.toString(), wsdl.toString()
 
 	def byteArrayOutputStream = new org.apache.commons.io.output.ByteArrayOutputStream()
 	errorOutput = new org.apache.commons.io.output.TeeOutputStream(System.err, byteArrayOutputStream)
