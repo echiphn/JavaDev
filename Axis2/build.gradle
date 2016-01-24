@@ -1,0 +1,36 @@
+description = 'examples for axis2 frameworkd'
+
+apply plugin: 'war'
+apply plugin: 'com.bmuschko.cargo'
+
+
+dependencies {
+	compile 'org.apache.axis2:axis2:1.6.4'
+	compile 'org.apache.axis2:axis2-transport-http:1.6.4'
+	compile 'org.apache.axis2:axis2-adb:1.6.4'
+	compile 'org.apache.axis2:axis2-transport-local:1.6.4'
+	compile 'org.apache.axis2:axis2-xmlbeans:1.6.4'
+}
+
+cargo {
+	containerId = 'tomcat7x'
+	port = 8080
+
+	deployable { context = "axis2Example" }
+	local {
+		homeDir = file("${tomcatBaseDir}")
+		timeout = 60000
+		outputFile=file("${tomcatBaseDir}/logs/axis2Example.log")
+		containerProperties { property 'cargo.tomcat.ajp.port', 9099 }
+
+	}
+}
+
+buildscript{
+	repositories{ jcenter() }
+	dependencies {
+		classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.3'
+		classpath 'com.bmuschko:gradle-cargo-plugin:2.2.1'
+	}
+}
+
