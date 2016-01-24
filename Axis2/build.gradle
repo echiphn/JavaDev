@@ -3,6 +3,9 @@ description = 'examples for axis2 frameworkd'
 apply plugin: 'war'
 apply plugin: 'com.bmuschko.cargo'
 
+configurations {
+	java2wsdl
+}
 
 dependencies {
 	compile 'org.apache.axis2:axis2:1.6.4'
@@ -10,6 +13,10 @@ dependencies {
 	compile 'org.apache.axis2:axis2-adb:1.6.4'
 	compile 'org.apache.axis2:axis2-transport-local:1.6.4'
 	compile 'org.apache.axis2:axis2-xmlbeans:1.6.4'
+	
+	java2wsdl "org.apache.cxf:cxf-tools-wsdlto-core:2.7.0"
+	java2wsdl "org.apache.cxf:cxf-tools-wsdlto-frontend-jaxws:2.7.0"
+	java2wsdl "org.apache.cxf:cxf-tools-wsdlto-databinding-jaxb:2.7.0"
 }
 
 cargo {
@@ -31,6 +38,33 @@ buildscript{
 	dependencies {
 		classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.3'
 		classpath 'com.bmuschko:gradle-cargo-plugin:2.2.1'
+		classpath "commons-io:commons-io:2.4"
 	}
 }
 
+def java2wsdl = task generateJavaFromWsdl(type: JavaExec) {
+	def wsdl = file('src/main/resources/wsdl/globalweather.wsdl')
+	def genSrcDir = file("${buildDir}/generated-sources")
+
+	inputs.file  wsdl
+	outputs.dir genSrcDir
+
+	classpath configurations.java2wsdl
+	main "org.apache.cxf.tools.wsdlto.WSDLToJava"
+
+	args '-d', genSrcDir.toString(), wsdl.toString()
+
+	def byteArrayOutputStream = new org.apache.commons.io.output.ByteArrayOutputStream()
+	errorOutput = new org.apache.commons.io.output.TeeOutputStream(System.err, byteArrayOutputStream)
+	doLast {
+		def str = byteArrayOutputStream.toString()
+		if (str.contains('Usage : wsdl2java') || str.contains('WSDLToJava Error')) {
+			throw new TaskExecutionException(
+					tasks[name],
+					new IOException("WSDLToJava has failed. Please see output")
+			)
+		}
+	}
+}
+compileJava.dependsOn += java2wsdl
+compileJava.source java2wsdl.outputs.files, sourceSets.main.java
